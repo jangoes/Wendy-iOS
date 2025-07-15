@@ -31,6 +31,11 @@ public final class WendyConfig {
         set { setConfig { $0.taskStatusListeners = newValue } }
     }
 
+    static var semaphoreValue: Int {
+        get { getConfig.semaphoreValue }
+        set { setConfig { $0.semaphoreValue = newValue } }
+    }
+    
     public class func addTaskRunnerListener(_ listener: TaskRunnerListener) {
         setConfig { $0.taskRunnerListeners.append(WeakReferenceTaskRunnerListener(listener: listener)) }
     }
@@ -64,6 +69,7 @@ public final class WendyConfig {
         var automaticallyRunTasks: Bool = true
         var taskRunnerListeners: [WeakReferenceTaskRunnerListener] = []
         var taskStatusListeners: [TaskStatusListener] = []
+        var semaphoreValue: Int = 1 // New: configurable semaphore value
     }
 
     final class DataStore: InMemoryDataStore<Data>, Singleton {
